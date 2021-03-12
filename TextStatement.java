@@ -3,13 +3,29 @@ import java.util.Enumeration;
 public class TextStatement {
     public String value(Customer aCustomer) {
         Enumeration rentals = aCustomer.getRentals();
-        String result = "Rental Record for " + aCustomer.getName() + "\n";
+        String result = getTitle(aCustomer);
         while (rentals.hasMoreElements()) {
             Rental each = (Rental) rentals.nextElement();
-            result += "\t" + each.getMovie().getTitle() + "\t" + String.valueOf(each.getCharge()) + "\n";
+            result += getRental(each);
         }
-        result += "Amount owed is " + String.valueOf(aCustomer.getTotalCharge()) + "\n";
-        result += "You earned " + String.valueOf(aCustomer.getTotalFrequentRenterPoints()) + " frequent renter points";
+        result += getAmountOwed(aCustomer);
+        result += getFrequentRenterPoints(aCustomer);
         return result;
+    }
+
+    private String getTitle(Customer aCustomer) {
+        return "Rental Record for " + aCustomer.getName() + "\n";
+    }
+
+    private String getRental(Rental movie) {
+        return "\t" + movie.getMovie().getTitle() + "\t" + String.valueOf(movie.getCharge()) + "\n";
+    }
+
+    private String getAmountOwed(Customer aCustomer) {
+        return "Amount owed is " + String.valueOf(aCustomer.getTotalCharge()) + "\n";
+    }
+
+    private String getFrequentRenterPoints(Customer aCustomer) {
+        return "You earned " + String.valueOf(aCustomer.getTotalFrequentRenterPoints()) + " frequent renter points";
     }
 }
